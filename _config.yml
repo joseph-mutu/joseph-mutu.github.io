@@ -3,8 +3,8 @@ title: WYX Blog
 SEOTitle: 宇欣的博客 | WYX Blog
 header-img: img/0.jpg
 email: josephmathone@gmail.com
-#description: "君はヒーローになれる"
-description: "I am"
+description: "君はヒーローになれる"
+#description: "I am"
 keyword: "WYX, Machine Learning, Probabilistic Graphical Models, PGM, Drawing,"
 url: "https://joseph-mutu.github.io/"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
