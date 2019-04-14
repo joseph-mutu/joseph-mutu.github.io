@@ -8,7 +8,7 @@ description: "君はヒーローになれる"
 keyword: "WYX, Machine Learning, Probabilistic Graphical Models, PGM, Drawing,"
 url: "https://joseph-mutu.github.io/"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/joseph-mutu" # you code repository
+github_repo: "https://github.com/joseph-mutu/joseph-mutu.github.io" # you code repository
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
