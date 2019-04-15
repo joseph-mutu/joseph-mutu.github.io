@@ -12,7 +12,7 @@ github_repo: "https://github.com/joseph-mutu/joseph-mutu.github.io" # you code r
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: [personal page](https://sites.google.com/view/wyx-mutu/home)
+sidebar-about-description: NA
 sidebar-avatar: /img/me.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
