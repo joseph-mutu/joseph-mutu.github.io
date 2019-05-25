@@ -4,7 +4,7 @@ title:      Exponential Family 				# 标题
 subtitle:   Exponential Family          #副标题
 date:       2019-05-10 				# 时间
 author:     WYX 						# 作者
-header-img: img/wuxia0.png 	#这篇文章标题背景图片
+header-img: img/wuxia0.jpg 	#这篇文章标题背景图片
 catalog: true 						# 是否归档
 tags:								#标签
     - Exponential Family,PGM
