@@ -26,7 +26,7 @@ tags:								#标签
 
 ---
 
-![1558622547599](C:\Users\mutudeh\AppData\Roaming\Typora\typora-user-images\1558622547599.png)
+![1558622547599](https://ae01.alicdn.com/kf/HTB196fhaL1G3KVjSZFkq6yK4XXaQ.jpg)
 
 ## 数学期望与积分
 
@@ -64,7 +64,7 @@ $$
 
 
 $$
-\mathbb{E}(X) = \sum_1^{\infin} x_ip_i
+\mathbb{E}(X) = \sum_1^{\infty} x_ip_i
 $$
 
 
