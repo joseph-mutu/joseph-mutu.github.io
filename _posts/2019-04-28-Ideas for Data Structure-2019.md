@@ -14,7 +14,61 @@ tags:								#标签
 
 
 
-# **Saving James Bond - Hard Version**
+### 堆的操作
+
+##### 将一个数组调成最大堆/最小堆
+
+从一个随机数据开始，从最后一个**具有儿子的节点**开始
+
+调整思想如下，以调整为最大堆为例
+
+- 每一个根节点自成一个堆，不需要调整
+- 最后一个具有儿子的节点，则当前节点与其儿子节点进行比较
+  - 首先选出儿子节点中较大的儿子，利用左儿子的序号 + 1，看是否超出数组来判定是否存在右儿子
+  - 当前节点与儿子节点中大的进行比较，如果当前节点比儿子节点下，则进行交换
+  - 将当前节点移动到其儿子节点，再与儿子节点的儿子节点进行比较
+  - 不断循环，直至达到叶节点
+
+<center>
+    <img src = "https://github.com/joseph-mutu/Pics/raw/master/createHeap1.jpg" width = "400"/><img src = "https://github.com/joseph-mutu/Pics/raw/master/createHeap2.jpg" width = "400"/>
+</center>
+
+#### 堆的插入操作
+
+插入的前提是，当前已经存在一个最大堆/最小堆
+
+<center>
+    <img src = "https://github.com/joseph-mutu/Pics/raw/master/maxHeapInsert.jpg" width = "200"/>
+</center>
+
+
+
+- 先将需要插入的节点直接 `append` 到数组的最后一个元素，然后从当前元素开始寻找其父节点
+- 因为排除最后插入的元素，当前为最大堆，则其父节点一定比 **除最后插入的元素以外** 的儿子节点大
+- 则若最后插入元素大于其父节点，交换位置，当前位置换为父节点位置，继续比较
+- 因为存在岗哨，所以直接比较到无法交换为止
+
+
+
+#### 堆的删除操作
+
+删除的前提是，当前为一个最大/最小堆
+
+- 将当前堆的堆顶元素取出，利用 `当前堆的最后元素` 进行代替
+
+- 此时，除堆顶元素外，堆顶元素的左子树以及右子树仍为 最大堆/最小堆
+- 将堆顶元素与其左儿子右儿子进行比对，并交换，调整当前位置为其交换的儿子位置
+- 一直到叶节点或者无法交换
+
+<center>
+    <img src ="https://github.com/joseph-mutu/Pics/raw/master/MaxheapDelete.jpg" width = "200"/><img src = "https://github.com/joseph-mutu/Pics/raw/master/maxHeapDelete2.jpg" width = "400"/>
+</center>
+
+
+
+
+
+### **Saving James Bond - Hard Version**
 
 - 将每一个鳄鱼的坐标看做一个节点，初始节点的坐标为 0,0
 - 根据最大跳跃距离为条件，设置每一个节点之间是否连通（如果能跳过去，即为连通）
@@ -24,9 +78,9 @@ tags:								#标签
 
 
 
-# 最小生成树
+### 最小生成树
 
-## Prim 算法
+#### Prim 算法
 
 在 prim 算法中，以任意节点为起始点，构建一个 cost[1~nodes] 数组，代表当前节点距离当前生成树的最小距离
 
@@ -42,7 +96,7 @@ tags:								#标签
 
 ![](https://ae01.alicdn.com/kf/HTB1fHDwT8LoK1RjSZFu760n0XXaB.png)
 
-## Kruskal 算法
+#### Kruskal 算法
 
 在 Kruskal 算法中，以边为结点，每次选取权重最小但是不能构成回路的边
 
@@ -62,9 +116,9 @@ tags:								#标签
 
   
 
-# 排序
+### 排序
 
-## 冒泡排序
+#### 冒泡排序
 
 具体算法如下：
 
@@ -83,7 +137,7 @@ tags:								#标签
 
 
 
-## 插入排序
+#### 插入排序
 
 给定一段数据，从下标为 1 的数据开始进行比对
 
@@ -130,7 +184,7 @@ def insert_sort(number,data):
 
 
 
-## 希尔排序
+#### 希尔排序
 
 希尔排序会使用插入排序
 
@@ -138,7 +192,7 @@ def insert_sort(number,data):
 
 ![](https://ae01.alicdn.com/kf/HTB1ETkCUSzqK1RjSZPcq6zTepXaf.jpg)
 
-# 堆排序
+#### 堆排序
 
 堆排序的想法是利用最大堆，并且无需用到额外的数组，具体想法如下
 
@@ -164,7 +218,7 @@ def insert_sort(number,data):
 
 ![](https://ae01.alicdn.com/kf/HTB1e7fkVgDqK1RjSZSyq6yxEVXaI.jpg)
 
-## 归并排序
+#### 归并排序
 
 归并排序的思想简单：
 
@@ -182,7 +236,7 @@ def insert_sort(number,data):
 
 ![1557639708388](C:\Users\mutudeh\AppData\Roaming\Typora\typora-user-images\1557639708388.png)
 
-### 难点
+#### 难点
 
 在归并排序中，难点在于对于尾巴的处理
 
@@ -209,7 +263,7 @@ $$
   - 如何判别当前序列长度下，有多少个完整的序列对以及遗留一个序列，还是两个序列（一个完整，一个不完整）
     - 完整的序列对，$pairs = int(len(data)/2*length)$
       - 以当前数据举例，数据长度为11,则 int(11/8) = 1
-    - 判断遗留，pass 所有完整序列，在当前位置（下式中data[9] = 7 的位置）加上一个序列长度（4）如果小于总数据长度，则表示当前遗留两个序列
+    - 判断遗留，pass 所有完整序列，在当前位置（下式中data[9] = 7 的位置）加上一个序列长度（序列长度为 4），如果小于总数据长度，则表示当前遗留两个序列
       - 否则的话，表示当前只有一个序列，无需进行merge，直接将最后一个序列导入到临时数组
 
 $$
@@ -226,15 +280,15 @@ $$
 
 
 
-## 快速排序 
+#### 快速排序 
 
-## 表排序
+#### 表排序
 
-## 基数排序
+#### 基数排序
 
 
 
-## 散列表 hash table
+#### 散列表 hash table
 
 所谓散列表就是将需要存储的数据，根据一个定义的函数，一次计算出其应该存在的位置，然后将数据在该位置进行存储
 
@@ -297,4 +351,4 @@ $$
 
 但是平方探测存在问题，有的位置可能会到达不了。所以在构建散列表的过程中，**需要以素数大小建表**
 
-![](https://ae01.alicdn.com/kf/HTB1fZFnXBCw3KVjSZFuq6AAOpXaA.jpg)
+![](https://ae01.alicdn.com/kf/HTB1fZFnXBCw3KVjSZFuq6AAOpXaA.jpg)	
