@@ -36,6 +36,8 @@ L(w) = \sum _{i=1}^N ||w^Tx_i - y_i||^2 \\
 = \sum _{i=1}^N (w^Tx_i - y_i)^2 \tag{1}
 $$
 现设数据 $x_i$ 存在 K 个维度，则 N 个样本 $x_i$ 构成一个矩阵，相应的，参数 $\textbf{w}$  以及数据的 `label` 也构成一个列向量
+
+
 $$
 \left(
 \begin{matrix}
@@ -45,7 +47,7 @@ w_3 \\
 \vdots\\
 w_K
 \end{matrix}
-\right)_{K \times 1}
+\right) _{K \times 1}
 ~~~~~~~~~
 \left(
 \begin{matrix}
@@ -54,7 +56,7 @@ x_{21} & x_{22} & x_{23} & \ldots & x_{2K} \\
  & &\vdots \\
  x_{N1} & x_{N2} & x_{N3} & \ldots & x_{NK} \\
 \end{matrix}
-\right)_{N\times K}
+\right) _{N\times K}
 ~~~~~~~~~
 \left(
 \begin{matrix}
@@ -64,8 +66,9 @@ y_3 \\
 \vdots\\
 y_N
 \end{matrix}
-\right)_{N \times 1}
+\right) _{N \times 1}
 $$
+
 
 
 则根据上述表示，可以将 (1) 式重写为矩阵乘积的形式
@@ -159,9 +162,8 @@ w \cdot x = |w||x|\cdot cos\theta \\
 \theta > 90, cos \theta < 0
 $$
 
-
 <center> 
-    <img src = "https://github.com/joseph-mutu/Pics/raw/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/perception.jpg"width = "300"/><img src = "https://github.com/joseph-mutu/Pics/raw/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/perception2.jpg"width = "300"
+    <img src = "https://github.com/joseph-mutu/Pics/raw/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/perception.jpg"width = "300"/><img src = "https://github.com/joseph-mutu/Pics/raw/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/perception2.jpg"width = "300">
 </center>
 
 ##### Loss Function
