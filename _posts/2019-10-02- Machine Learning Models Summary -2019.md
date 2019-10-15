@@ -137,14 +137,74 @@ y = w^Tx + \epsilon
 $$
 假设噪声 $\epsilon$ 服从均值为 0 ，方差为 $\delta^2$ 的高斯分布，即 $\epsilon \sim N(0,\delta^2)$, 则
 $$
-y \sim N(w^Tx,\delta^2)
+y^i|x^i \sim N(w^Tx^i,\delta^2) \tag{1}
 $$
 这里的解释参照上图。
 
+##### 极大似然估计求解 $w$
+
+首先设定 `likelihood function` 
+$$
+L(w) = \prod _{i=1}^N p(y^i|x^i;w) \\
+\space \\
+= \prod _{i=1}^N \frac{1}{\sqrt{2\pi}\delta} exp\lbrace -\frac{(y^i - w^Tx^i)^2}{2\delta^2} \rbrace
+$$
+
+
+对似然函数进行取 log 简化运算，则
+$$
+\mathcal{L}(w) = log L(w) \\
+\space \\
+=  -Nlog \sqrt{2\pi}\delta + \sum _{i=1} ^N log~ exp \lbrace -\frac{(y^i - w^Tx^i)^2}{2\delta^2} \rbrace \\
+\space \\
+= -Nlog \sqrt{2\pi}\delta  - \frac{1}{2\delta^2}\sum _{i=1}^N (y^i - w^T x^i)^2
+$$
+且
+$$
+\hat{w} = \arg \max \mathcal{L(w)} \\
+\space \\
+= \arg \min \frac{1}{2}\sum _{i=1}^N (y^i - w^T x^i)^2
+$$
+
+##### Prior Distribution and Regularization 
+
 如果假设参数$\textbf{w}$ 同样存在一个先验，即
 $$
-w \sim N(0,\delta_0 ^2) 
+w \sim N(0,\delta_w ^2) \\
+\space \\
+N(0,\delta _w^2) = \frac{1}{\sqrt{2\pi \delta_w^2}} exp \lbrace- \frac{||w_i||^2}{2\delta_w^2} \rbrace           \tag{2}
 $$
+根据贝叶斯公式，则有
+$$
+p(w|y) = \frac{p(y|w)p(w)}{p(w)}
+$$
+
+###### MAP 最大后验概率求 $w$
+
+$$
+\hat{w} = \arg \max _w p(w|y) \\
+\space \\
+= \arg \max _w p(y|w)p(w) \\
+\space \\
+=   \arg \max _w  \prod _{i=1}^N  \frac{1}{\sqrt{2\pi \delta^2}} exp \lbrace- \frac{(y^i - w^Tx)^2}{2\delta^2} \rbrace  \frac{1}{\sqrt{2\pi \delta_w^2}} exp \lbrace- \frac{||w||^2}{2\delta_w^2} \rbrace\\
+\space \\  
+= \arg \max _w ~ \prod _{i=1}^N   log \frac{1}{\sqrt{2\pi \delta^2}} \frac{1}{\sqrt{2\pi \delta_w^2}} log~  exp \lbrace- \frac{(y^i - w^Tx)^2}{2\delta^2} - \frac{||w||^2}{2\delta_w^2} \rbrace \\
+\space \\
+= \arg \max _w \underbrace{N log \frac{1}{\sqrt{2\pi \delta^2}} \frac{1}{\sqrt{2\pi \delta_w^2}}}_{Constant} \sum _{i=1}^N \lbrace- \frac{(y^i - w^Tx)^2}{2\delta^2} - \frac{||w||^2}{2\delta_w^2} \rbrace \\
+\space \\
+= \arg \max _w \sum _{i=1}^N \lbrace- \frac{(y^i - w^Tx)^2}{2\delta^2} - \frac{||w||^2}{2\delta_w^2} \rbrace \\
+\space \\
+= \arg \min _w \sum _{i=1}^N \lbrace\frac{(y^i - w^Tx)^2}{2\delta^2} +\frac{||w||^2}{2\delta_w^2} \rbrace \\
+$$
+
+ 则
+$$
+\hat{w_{MAP}} =  \arg \min _w \sum _{i=1}^N \lbrace\frac{(y^i - w^Tx)^2}{2\delta^2} +\frac{||w||^2}{2\delta_w^2} \rbrace \\ 
+\space \\
+=  \arg \min _w \sum _{i=1}^N \lbrace (y^i - w^Tx)^2 + \frac{\delta^2}{{\delta_w^2}} ||w||^2 \rbrace
+$$
+
+
 则可以推得与 L2 正则化相同的结果
 
 **正则化与先验具有相同的性质**
