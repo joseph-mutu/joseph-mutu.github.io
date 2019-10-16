@@ -1,4 +1,4 @@
----
+```
 layout:     post   				    # 使用的布局（不需要改）
 title:      Linear Gaussian Model				# 标题 
 subtitle:   Bayesian Linear regression,multivariable gaussian           #副标题
@@ -8,10 +8,7 @@ header-img: img/4.4.jpg 	#这篇文章标题背景图片
 catalog: true 						# 是否归档
 tags:								#标签
     - Bayesian Inference
-
----
-
----
+```
 
 
 
@@ -58,8 +55,7 @@ $$
 
 
 $$
-\mu_{MLE} = \frac{1}{N} \sum _{i=1} ^N x_i \\
-\delta_{MLE}^2 = \frac{1}{N} \sum _{i=1} ^N (x_i - \mu_{MLE})^2
+\mu_{MLE} = \frac{1}{N} \sum _{i=1} ^N x_i \\\delta_{MLE}^2 = \frac{1}{N} \sum _{i=1} ^N (x_i - \mu_{MLE})^2
 $$
 $\delta_{MLE}$ 的估计值为**有偏估计**
 
@@ -73,31 +69,13 @@ $$
 
 
 $$
-\frac{1}{N} \sum _{i=1} ^N (x_i - \mu_{MLE})^2 = \frac{1}{N} \sum _{i=1} (x_i^2 - 2x_i\mu_{MLE} + \mu_{MLE}^2) \\
-\space 将 x_i 与 \mu_{MLE} 的关系带入 \\
-= \frac{1}{N} \sum _{i=1} ^N x_i^2 - 2\mu_{MLE}\sum _{i=1} ^N x_i + N\mu_{MLE}^2 \\
-= \frac{1}{N} \sum _{i=1} ^N x_i^2 - 2\mu_{MLE} \times N\mu_{MLE} + N\mu_{MLE}^2 \\
-= \frac{1}{N} \sum _{i=1} ^N x_i^2 - 2N\mu_{MLE}^2 + N\mu_{MLE}^2 \\
-= \frac{1}{N} \sum _{i=1} ^N x_i^2 - N\mu_{MLE}^2 \\
-= \frac{1}{N} \sum _{i=1} ^N x_i^2 - \mu_{MLE}^2\tag{2}
+\frac{1}{N} \sum _{i=1} ^N (x_i - \mu_{MLE})^2 = \frac{1}{N} \sum _{i=1} (x_i^2 - 2x_i\mu_{MLE} + \mu_{MLE}^2) \\\space 将 x_i 与 \mu_{MLE} 的关系带入 \\= \frac{1}{N} \sum _{i=1} ^N x_i^2 - 2\mu_{MLE}\sum _{i=1} ^N x_i + N\mu_{MLE}^2 \\= \frac{1}{N} \sum _{i=1} ^N x_i^2 - 2\mu_{MLE} \times N\mu_{MLE} + N\mu_{MLE}^2 \\= \frac{1}{N} \sum _{i=1} ^N x_i^2 - 2N\mu_{MLE}^2 + N\mu_{MLE}^2 \\= \frac{1}{N} \sum _{i=1} ^N x_i^2 - N\mu_{MLE}^2 \\= \frac{1}{N} \sum _{i=1} ^N x_i^2 - \mu_{MLE}^2\tag{2}
 $$
 重写 (1) 式可以得到
 $$
-E[\delta_{MLE}^2] =  E[\frac{1}{N}\sum _{i=1} ^N x_i^2 - \mu_{MLE}^2 \tag{2}] \\
-\space 添加一个 \mu^2 减去一个 \mu^2\\
-=   E[\frac{1}{N}(\sum _{i=1} ^N x_i^2 - \mu^2) - (\mu_{MLE}^2 - \mu^2)] \\
-= E[\frac{1}{N} \sum _{i=1} ^N (x_i^2 - \mu^2)] -  E[ (\mu_{MLE}^2 - \mu^2)] \\
-= \frac{1}{N} \sum _{i=1} ^NE[x_i^2 - \mu^2] - (E[\mu_{MLE}^2] - E[\mu^2)]) \\
-= \frac{1}{N} N Var(x_i) - (E[\mu_{MLE}^2] - \underbrace{\mu^2}_{E[\mu_{MLE}]^2}) \\
-= Var(x_i)  - Var(\mu_{MLE}) \\
-= \delta^2 - Var[ \frac{1}{N} \sum _{i=1} ^N x_i] \\= \delta^2 -  \frac{1}{N^2} \sum _{i=1} ^N Var(x_i) \\
-= \delta^2 - \frac{1}{N^2}N \delta^2 = \delta^2 - \frac{1}{N} \delta^2 =\frac{N-1}{N}\delta^2
+E[\delta_{MLE}] =  E[\frac{1}{N}\sum _{i=1} ^N x_i^2 - \mu_{MLE}^2 \tag{2}] \\\space 添加一个 \mu^2 减去一个 \mu^2\\=   E[\frac{1}{N}(\sum _{i=1} ^N x_i^2 - \mu^2) - (\mu_{MLE}^2 - \mu^2)] \\= E[\frac{1}{N} \sum _{i=1} ^N (x_i^2 - \mu^2)] -  E[ (\mu_{MLE}^2 - \mu^2)] \\= \frac{1}{N} \sum _{i=1} ^NE[x_i^2 - \mu^2] - (E[\mu_{MLE}^2] - E[\mu^2)]) \\= \frac{1}{N} N Var(x_i) - (E[\mu_{MLE}^2] - \underbrace{\mu^2}_{E[\mu_{MLE}]^2}) \\= Var(x_i)  - Var(\mu_{MLE}) \\= \delta^2 - Var[ \frac{1}{N} \sum _{i=1} ^N x_i] \\= \delta^2 -  \frac{1}{N^2} \sum _{i=1} ^N Var(x_i) \\= \delta^2 - \frac{1}{N^2}N \delta^2 \\= \delta^2 - \frac{1}{N} \delta^2  \\= \frac{N-1}{N}\delta^2
 $$
-最终可知从最大似然估计对 $\delta$ 的估计值为有偏估计，即其期望不为 $\delta^2$ 
+从而可知，通过 MLE 对 $\delta^2$ 的估计为有偏估计，所以需要消除其有偏性，也就是使得
 $$
-E[\delta_{MLE}^2] \neq \delta^2
-$$
-所以其无偏估计为
-$$
-\frac{N}{N-1}E[\delta_{MLE}^2] = \frac{N}{N-1}E[\frac{1}{N} \sum _{i=1} ^N (x_i - \mu_{MLE})^2] = \frac{1}{N-1}E[\frac{1}{N} \sum _{i=1} ^N (x_i - \mu_{MLE})^2]
+\frac{N}{N-1}E[\delta_{MLE}^2] =\frac{N}{N-1} E[\frac{1}{N} \sum _{i=1} ^N (x_i - \mu_{MLE})^2] \\= \frac{1}{N-1}E[ \sum _{i=1} ^N (x_i - \mu_{MLE})^2]
 $$
