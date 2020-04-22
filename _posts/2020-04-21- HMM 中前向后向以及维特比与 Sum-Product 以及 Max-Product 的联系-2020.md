@@ -43,8 +43,10 @@ $$
 - 从因子到节点
 - 从节点到因子
 
+
+
 <center>
-    <img src = 'https://github.com/joseph-mutu/Pics/raw/master/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD/factor-hmm.png'width = '400'/>
+    <img src = 'https://github.com/joseph-mutu/Pics/raw/master/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD/factor-hmm.png' width = '400'/>
 </center>
 
 ## 初始化
@@ -80,6 +82,8 @@ Note:
 #### 初始化
 
 **叶子节点**
+
+
 $$
 \mu_{x_1\rightarrow f_1}(x_1) = 1  \\
 \space \\
@@ -94,7 +98,9 @@ $$
 \Rightarrow \mu_{x_3\rightarrow f_5}(x_3 =红) = 1 \\
 \space \\
 $$
-**叶子节点的因子节点**
+
+
+叶子节点的因子节点**
 $$
 \mu_{f_0\rightarrow h_1}(h_1) = f(h_1)  \\
 \space \\
@@ -121,10 +127,16 @@ $$
 #### **$h_1 \rightarrow f_2$**
 
 节点到因子的计算
+
+
 $$
 \mu_{h_1\rightarrow f_2}(h_1) = \prod \mu_{f_0\rightarrow h_1}(h_1) \mu_{f_0\rightarrow h_1}(h_1)  \\
 $$
+
+
 $h_1$ 存在三种取值，三种取值分开计算
+
+
 $$
 \mu_{h_1\rightarrow f_2}(h_1=1) = \mu_{f_0\rightarrow h_1}(h_1=1) \mu_{f_0\rightarrow h_1}(h_1=1) \\
 \space \\
@@ -146,6 +158,8 @@ $$
 #### $f_2 \rightarrow h_2$
 
 因子到节点的计算
+
+
 $$
 \mu_{f_2\rightarrow h_2}(h_2) = \sum_{h_2} p(h_1,h_2)\mu_{h_1\rightarrow f_2}(h_1)
 $$
@@ -207,10 +221,16 @@ $$
 #### $h_2 \rightarrow f_4$
 
 节点到因子的计算
+
+
 $$
 \mu_{h_2\rightarrow f_4}(h_2) = \prod \mu_{f_2\rightarrow h_2}(h_2) \mu_{f_3\rightarrow h_2}(h_2)  \\
 $$
+
+
 $h_2$ 存在三种取值，三种取值分开计算
+
+
 $$
 \mu_{h_2\rightarrow f_4}(h_2=1) = \mu_{f_2\rightarrow h_2}(h_2=1) \mu_{f_3\rightarrow h_2}(h_2=1) \\
 \space \\= 0.154 * 0.5 = 0.077
@@ -229,6 +249,8 @@ $$
 #### $f_4 \rightarrow h_3$
 
 因子到节点的计算
+
+
 $$
 \mu_{f_4\rightarrow h_3}(h_3) = \sum_{h_3} p(h_2,h_3)\mu_{h_2\rightarrow f_4}(h_2)
 $$
