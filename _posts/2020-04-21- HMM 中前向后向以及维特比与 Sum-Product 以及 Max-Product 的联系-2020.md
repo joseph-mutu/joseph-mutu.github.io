@@ -1,6 +1,6 @@
 ---
 layout:     post   				    # 使用的布局（不需要改）
-title:      HMM 中前向后向以及维特比与 Sum-Product 以及 Max-Product 的联系			# 标题 
+title:      HMM与Sum/Max-Product 的联系			# 标题 
 subtitle:   sum-product, max-product           #副标题
 date:       2020-04-20 				# 时间
 author:     WYX 						# 作者
@@ -46,10 +46,12 @@ $$
 
 
 <center>
-    <img src = 'https://github.com/joseph-mutu/Pics/raw/master/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD/factor-hmm.png' width = '400'/>
+    <img src = 'https://github.com/joseph-mutu/Pics/raw/master/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD/hmm-factor.png' width = '600'/>
 </center>
 
-## 初始化
+
+
+### 初始化
 
 上述 $f_0$ 为初始节点的因子节点，意即消息从 $f_0$ 开始传递，而 $x_1,x_2,x_3$ 为叶子节点
 
@@ -78,6 +80,16 @@ Note:
 ----
 
 ### 消息传递
+
+
+
+<center>
+    <img src = "https://github.com/joseph-mutu/Pics/raw/master/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD/sum-product.jpg" width = "500"/>
+</center>
+
+
+
+
 
 #### 初始化
 
@@ -214,8 +226,13 @@ $$
 #### **$f_3 \rightarrow h_2$**
 
 $$
-\mu_{f_3\rightarrow h_2}(h_2) = f(h_2) \\\space \\\mu_{f_3\rightarrow h_2}(h_2=1) = p(x2 = 红| h_2 =1) = 0.5\\\space 
-\\\mu_{f_3\rightarrow h_2}(h_2=2) = p(x2 = 红| h_2 =2) = 0.6\\\space \\\mu_{f_3\rightarrow h_2}(h_2=3) = p(x2 = 红| h_2 =3) = 0.3\\
+\mu_{f_3\rightarrow h_2}(h_2) = f(h_2) \\
+\space \\
+\mu_{f_3\rightarrow h_2}(h_2=1) = p(x2 = 白| h_2 =1) = 0.5\\
+\space \\
+\mu_{f_3\rightarrow h_2}(h_2=2) = p(x2 = 白| h_2 =2) = 0.6\\
+\space \\
+\mu_{f_3\rightarrow h_2}(h_2=3) = p(x2 = 白| h_2 =3) = 0.3\\
 $$
 
 #### $h_2 \rightarrow f_4$
@@ -303,28 +320,33 @@ $$
 
 #### $p(h_3)$
 
+
 $$
-p(h_3) = \prod \mu_{f_0\rightarrow h_1}(h_1) \mu_{f_0\rightarrow h_1}(h_1)  \\
+p(h_3) = \prod \mu_{f_4\rightarrow h_3}(h_3) \mu_{f_4\rightarrow h_1}(h_3)  \\
 $$
 
 $$
-p(h_3=1) =  \mu_{f_4\rightarrow h_3}(h_3=1) *\mu_{f_5\rightarrow h_4}(h_4 = 1)\\ 
+p(h_3=1) =  \mu_{f_4\rightarrow h_3}(h_3=1) *\mu_{f_5\rightarrow h_3}(h_3 = 1)\\ 
 =  0.08374 * 0.5 = 0.04187 \\
 $$
 
 $$
-p(h_3=1) =  \mu_{f_4\rightarrow h_3}(h_3=1) *\mu_{f_5\rightarrow h_4}(h_4 = 1)\\ 
+p(h_3=1) =  \mu_{f_4\rightarrow h_3}(h_3=1) *\mu_{f_5\rightarrow h_3}(h_3 = 1)\\ 
 =  0.08878 * 0.4 = 0.035512 \\
 $$
 
 $$
-p(h_3=1) =  \mu_{f_4\rightarrow h_3}(h_3=1) *\mu_{f_5\rightarrow h_4}(h_4 = 1)\\ 
+p(h_3=1) =  \mu_{f_4\rightarrow h_3}(h_3=1) *\mu_{f_5\rightarrow h_3}(h_3 = 1)\\ 
 =  0.07548 * 0.7 = 0.052836 \\
 $$
+
+
 
 #### 终止
 
 将 $p(h_3)$ 进行 Marginalize 则，整个联合概率
+
+
 $$
 \sum _{h_1,h_2,h_3}p(x_1=红,x_2 = 白,x_3 = 红,h_1,h_2,h_3) \\
 \space \\
@@ -332,14 +354,362 @@ $$
 $$
 
 
+
+
+
 # 维特比与Max-Product
+
+目的：求解最优隐变量（最佳路径）
+
+- 从结果往 Backtrack
+
+参数如下
 
 <center>
     <img src = "https://github.com/joseph-mutu/Pics/raw/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/p186.jpg" width = '500'/>
 </center>
+同样需要将 hmm 从有向图转换为因子图，如下
 
 
 
+<center>
+    <img src = 'https://github.com/joseph-mutu/Pics/raw/master/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD/hmm-factor.png' width = '600'/>
+</center>
+
+
+
+### 消息传递
+
+注意到与 `Sum-Product` 的不同之处在于，从因子到节点之间的传播只取最大值
+
+- 初始化与 `sum-product` 一致，不再重复
+
+
+
+<center>
+    <img src = "https://github.com/joseph-mutu/Pics/raw/master/%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD/max-product.jpg" width = "550"/>
+</center>
+
+
+
+#### $f_1 \rightarrow h_1$
+
+$$
+\mu_{f_0\rightarrow h_1}(h_1) = f(h_1) \\
+\space \\
+\mu_{f_0\rightarrow h_1}(h_1=1) = p(x1 = 红| h_1 =1) = 0.5\\
+\space \\
+\mu_{f_0\rightarrow h_1}(h_1=2) = p(x1 = 红| h_1 =2) = 0.4\\
+\space \\
+\mu_{f_0\rightarrow h_1}(h_1=3) = p(x1 = 红| h_1 =3) = 0.7\\
+$$
+
+**$h_1 \rightarrow f_2$**
+
+节点到因子的计算
+
+
+
+$$
+\mu_{h_1\rightarrow f_2}(h_1) = \prod \mu_{f_0\rightarrow h_1}(h_1) \mu_{f_0\rightarrow h_1}(h_1)  \\
+$$
+
+
+
+$h_1$ 存在三种取值，三种取值分开计算
+
+
+
+$$
+\mu_{h_1\rightarrow f_2}(h_1=1) = \mu_{f_0\rightarrow h_1}(h_1=1) \mu_{f_0\rightarrow h_1}(h_1=1) \\
+\space \\
+= 0.2 * 0.5 = 0.1
+$$
+
+$$
+\mu_{h_1\rightarrow f_2}(h_1=2) = \mu_{f_0\rightarrow h_1}(h_1=2) \mu_{f_0\rightarrow h_1}(h_1=2) \\
+\space \\
+= 0.4 * 0.4 = 0.16
+$$
+
+$$
+\mu_{h_1\rightarrow f_2}(h_1=3) = \mu_{f_0\rightarrow h_1}(h_1=3) \mu_{f_0\rightarrow h_1}(h_1=3) \\
+\space \\
+= 0.4 * 0.7  = 0.28
+$$
+
+#### $f_2 \rightarrow h_2$
+
+与 Sum-Product 不同之处，取 `max` 而不是加和
+
+
+$$
+\mu_{f_2\rightarrow h_2}(h_2) = max\{ p(h_1,h_2)\mu_{h_1\rightarrow f_2}(h_1) \}
+$$
+
+$$
+\mu_{f_2\rightarrow h_2}(h_2) = \\
+\space \\ 
+max \{\\
+p(h_2=1|h_1=1)\mu_{h_1\rightarrow f_2}(h_1=1), \\
+\space \\
+p(h_2=1|h_1=2))\mu_{h_1\rightarrow f_2}(h_1=2),\\
+\space\\
+p(h_2=1|h_1=3)\mu_{h_1\rightarrow f_2}(h_1=3),\\\}
+\space \\
+= max(0.5 * 0.1,0.3 * 0.16,0.2*0.28) \\
+= max(0.05,0.048,\underbrace{0.056}_{Max})
+$$
+
+
+---
+
+
+$$
+\mu_{f_2\rightarrow h_2}(h_2) = \\
+\space \\ 
+max \{\\
+p(h_2=2|h_1=1)\mu_{h_1\rightarrow f_2}(h_1=1), \\
+\space \\
+p(h_2=2|h_1=2))\mu_{h_1\rightarrow f_2}(h_1=2),\\
+\space\\
+p(h_2=2|h_1=3)\mu_{h_1\rightarrow f_2}(h_1=3),\\\}
+\space \\
+= max(0.2 * 0.1,0.5 * 0.16,0.3*0.28) \\
+= max(0.02,0.08,\underbrace{0.084}_{Max})
+$$
+
+
+---
+
+
+$$
+\mu_{f_2\rightarrow h_2}(h_2) = \\
+\space \\ 
+max \{\\
+p(h_2=3|h_1=1)\mu_{h_1\rightarrow f_2}(h_1=1), \\
+\space \\
+p(h_2=3|h_1=2))\mu_{h_1\rightarrow f_2}(h_1=2),\\
+\space\\
+p(h_2=3|h_1=3)\mu_{h_1\rightarrow f_2}(h_1=3),\\\}
+\space \\
+= max(0.3 * 0.1,0.2 * 0.16,0.5*0.28) \\
+= max(0.03,0.032,\underbrace{0.14}_{Max})
+$$
+
+
+$f_3\rightarrow h_2$
+
+
+$$
+\mu_{f_3\rightarrow h_2}(h_2) = f(h_2) \\
+\space \\
+\mu_{f_3\rightarrow h_2}(h_2=1) = p(x2 = 白| h_2 =1) = 0.5\\
+\space \\
+\mu_{f_3\rightarrow h_2}(h_2=2) = p(x2 = 白| h_2 =2) = 0.6\\
+\space \\
+\mu_{f_3\rightarrow h_2}(h_2=3) = p(x2 = 白| h_2 =3) = 0.3\\
+$$
+
+
+#### $h_2 \rightarrow f_4$
+
+节点到因子的计算
+
+
+
+$$
+\mu_{h_2\rightarrow f_4}(h_2) = \prod \mu_{f_2\rightarrow h_2}(h_2) \mu_{f_3\rightarrow h_2}(h_2)  \\
+$$
+
+
+
+$h_2$ 存在三种取值，三种取值分开计算
+
+
+
+$$
+\mu_{h_2\rightarrow f_4}(h_2=1) = 
+\mu_{f_2\rightarrow h_2}(h_2=1) \mu_{f_3\rightarrow h_2}(h_2=1) \\
+\space \\
+= 0.056 * 0.5 =0.028
+$$
+
+$$
+\mu_{h_2\rightarrow f_4}(h_2=1) = \mu_{f_2\rightarrow h_2}(h_2=1) \mu_{f_3\rightarrow h_2}(h_2=1) \\
+\space \\
+= 0.084 * 0.6 = 0.0504
+$$
+
+$$
+\mu_{h_2\rightarrow f_4}(h_2=1) = \mu_{f_2\rightarrow h_2}(h_2=1) \mu_{f_3\rightarrow h_2}(h_2=1) \\
+\space \\
+= 0.14 * 0.3 = 0.042
+$$
+
+
+
+#### $f_4 \rightarrow h_3$
+
+
+
+同样，不同之处在于取 Max 而不是加和
+
+
+$$
+\mu_{f_4\rightarrow h_3}(h_3) = \max \{ p(h_2,h_3)\mu_{h_2\rightarrow f_4}(h_2) \}
+$$
+
+$$
+\mu_{f_4\rightarrow h_3}(h_3) = \\
+\space \\
+\max \{\\
+p(h_3=1|h_2=1)\mu_{h_2\rightarrow f_4}(h_2=1) + \\
+\space \\
+p(h_3=1|h_2=2))\mu_{h_2\rightarrow f_4}(h_2=2) +\\
+\space\\
+p(h_3=1|h_2=3)\mu_{h_1\rightarrow f_2}(h_2=3)\\
+\space \\
+\} \\
+=max(0.5*0.028, 0.3 * 0.0504,0.2 * 0.042) \\
+\space \\
+= max(0.014,\underbrace{0.01512}_{Max},0.0084)
+$$
+
+
+---
+
+
+$$
+\mu_{f_4\rightarrow h_3}(h_3) = \\
+\space \\
+\max \{\\
+p(h_3=2|h_2=1)\mu_{h_2\rightarrow f_4}(h_2=1) + \\
+\space \\
+p(h_3=2|h_2=2))\mu_{h_2\rightarrow f_4}(h_2=2) +\\
+\space\\
+p(h_3=2|h_2=3)\mu_{h_1\rightarrow f_2}(h_2=3)\\
+\space \\
+\} \\
+=max(0.2*0.028, 0.5 * 0.0504,0.3 * 0.042) \\
+\space \\
+= max(0.0056,\underbrace{0.0252}_{Max},0.0126)
+$$
+
+
+---
+
+
+$$
+\mu_{f_4\rightarrow h_3}(h_3) = \\
+\space \\
+\max \{\\
+p(h_3=3|h_2=1)\mu_{h_2\rightarrow f_4}(h_2=1) + \\
+\space \\
+p(h_3=3|h_2=2))\mu_{h_2\rightarrow f_4}(h_2=2) +\\
+\space\\
+p(h_3=3|h_2=3)\mu_{h_1\rightarrow f_2}(h_2=3)\\
+\space \\
+\} \\
+=max(0.3*0.028, 0.2 * 0.0504,0.5 * 0.042) \\
+\space \\
+= max(0.0084,0.01008,\underbrace{0.021}_{Max})
+$$
+
+
+#### $f_5 \rightarrow h_3$
+
+
+$$
+\mu_{f_5\rightarrow h_3}(h_3) = f(h_3) \\
+\space \\
+\mu_{f_5\rightarrow h_3}(h_3=1) = p(x3 = 红| h_3 =1) = 0.5\\
+\space \\
+\mu_{f_5\rightarrow h_3}(h_3=2) = p(x3 = 红| h_3 =2) = 0.4\\
+\space \\
+\mu_{f_5\rightarrow h_3}(h_3=3) = p(x3 = 红| h_3 =3) = 0.7\\
+\space \\
+$$
+
+
+#### 求解 $h_3$ 并回溯
+
+
+$$
+h_3^* = arg\max \mu_{f_4\rightarrow h_3}(h_3) \mu_{f_4\rightarrow h_1}(h_3)  \\
+$$
+
+$$
+p(h_3 = 1) = \mu_{f_4\rightarrow h_3}(h_3=1) *\mu_{f_5\rightarrow h_3}(h_3 = 1)\\ 
+\space \\
+= 0.5 * 0.01512  = 0.00756 \\
+$$
+
+$$
+p(h_3 = 2) = \mu_{f_4\rightarrow h_3}(h_3=2) *\mu_{f_5\rightarrow h_3}(h_3 = 2)\\ 
+\space \\
+= 0.4 * 0.0252  = 0.01008 \\
+$$
+
+$$
+p(h_3 = 3) = \mu_{f_4\rightarrow h_3}(h_3=2) *\mu_{f_5\rightarrow h_3}(h_3 = 3)\\ 
+\space \\
+= 0.7 * 0.021  =\underbrace{ 0.0147 }_{Max}\\
+$$
+
+
+
+##### 回溯
+
+得到 $h_3 = 3$
+
+
+
+根据 
+$$
+\mu_{f_4\rightarrow h_3}(h_3) = \\
+\space \\
+\max \{\\
+p(h_3=3|h_2=1)\mu_{h_2\rightarrow f_4}(h_2=1) + \\
+\space \\
+p(h_3=3|h_2=2))\mu_{h_2\rightarrow f_4}(h_2=2) +\\
+\space\\
+p(h_3=3|h_2=3)\mu_{h_1\rightarrow f_2}(h_2=3)\\
+\space \\
+\} \\
+=max(0.3*0.028, 0.2 * 0.0504,0.5 * 0.042) \\
+\space \\
+= max(0.0084,0.01008,\underbrace{0.021}_{Max})
+$$
+
+
+得到 $h_2 = 3$
+
+根据 
+
+
+$$
+\mu_{f_2\rightarrow h_2}(h_2) = \\
+\space \\ 
+max \{\\
+p(h_2=3|h_1=1)\mu_{h_1\rightarrow f_2}(h_1=1), \\
+\space \\
+p(h_2=3|h_1=2))\mu_{h_1\rightarrow f_2}(h_1=2),\\
+\space\\
+p(h_2=3|h_1=3)\mu_{h_1\rightarrow f_2}(h_1=3),\\\}
+\space \\
+= max(0.3 * 0.1,0.2 * 0.16,0.5*0.28) \\
+= max(0.03,0.032,\underbrace{0.14}_{Max})
+$$
+
+
+得到 $h_1  = 3$
+
+则最终路径为 $(3,3,3)$ 求解完毕。
+
+
+
+书上答案如下
 
 
 
@@ -350,4 +720,3 @@ $$
 
 
 
- 
